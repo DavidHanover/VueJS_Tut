@@ -1,13 +1,22 @@
 <template>
     <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
-        <p>{{todo.title}}</p>
+        <p>
+            <input v-bind:checked="todo.completed" type="checkbox" v-on:change="markComplete"/>
+            {{todo.title}}
+            <button @click="$emit('del-todo', todo.id)" class = "del">X</button>
+        </p>
     </div>
 </template>
 
 <script>
 export default {
     name: "TodoItem",
-    props: ["todo"]
+    props: ["todo"],
+    methods:{
+        markComplete(){
+            this.todo.completed = !this.todo.completed;
+        }
+    }
     
 }
 </script>
@@ -25,6 +34,11 @@ export default {
 
 .del{
     background: #ff0000;
+    color:#fff;
+    border:none;
+    padding: 5px 9px;
+    border-radius: 50%;
+    float:right;
 
 }
 
